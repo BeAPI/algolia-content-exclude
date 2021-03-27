@@ -1,0 +1,13 @@
+README.md export-ignore
+.gitattributes export-ignore
+.gitignore export-ignore
+grumphp.yml export-ignore
+phpcs.xml.dist export-ignore
+psalm.xml export-ignore
+docs export-ignore
+tests export-ignore
+.github export-ignore
+composer.json export-ignore
+composer.lock
+.distignore export-ignore
+webpack.config.js export-ignore
