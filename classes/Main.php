@@ -50,6 +50,11 @@ class Main {
 	 * @author Nicolas JUEN
 	 */
 	public function should_index( $should_index, \WP_Post $post ): bool {
+		// If already skipped, do not make anyting
+		if ( false == $should_index ) {
+			return $should_index;
+		}
+
 		$meta = (bool) \get_post_meta( $post->ID, '_algolia_content_exclude', true );
 
 		return ! ( true === $meta );
