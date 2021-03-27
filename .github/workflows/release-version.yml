@@ -21,11 +21,20 @@ jobs:
           php-version: 7.2
       - run: composer install --prefer-dist --no-dev -o --ignore-platform-reqs
       - run: |
-          echo "Remove useless folders"
+          echo "Get Branch tag"
+          TAG=$(echo '${{ github.ref }}' | grep -Po '(?<=version-)[^;]+')
+
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag exists, stop now";
+            exit 0;
+          fi
+
+          echo "Copy .distignore to .gitignore"
           cp .distignore .gitignore
 
-          tag=$(echo '${{ github.ref }}' | grep -Po '(?<=version-)[^;]+')
-          git status
+          echo "Creating tag ${TAG}"
           git add .
-          git status
-          echo tag
+          git ci -m "Create tag ${TAG}"
+          git tag ${TAG}
+          git push --tags
+          git push
