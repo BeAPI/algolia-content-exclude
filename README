@@ -1,0 +1,35 @@
+# Aloglia Content Exclude
+
+## Introduction
+
+This plugin allows you to exclude content from algolia indexation with a metabox.
+All post types with show_ui => true will have the metabox displayed.
+Supports Gutenberg and Classic editor.
+
+## Requirements
+- WordPress > 5.0
+- PHP >= 7.2
+
+## Installation
+### From composer
+```shell script
+composer require beapi/algolia-content-exclude
+```
+
+### From files
+Download the zip folder from the desired tag.
+
+## Changelog
+
+### 1.0.2
+* Do not force indexation if already at false
+
+### 1.0.1
+* Fix label not clickable
+
+### 1.0.0
+* Base plugin
+
+## Creating a release
+
+To create a release, just push a branch version/{your-version} and then github actions will generate a tag with the compiled code.
