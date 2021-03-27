@@ -74,8 +74,13 @@ class Main {
 			return;
 		}
 
-		add_meta_box( 'algolia-content-exclude', 'Algolia Content Exclude', [ $this, 'metabox' ],
-			$post_type, 'normal', 'high',
+		add_meta_box(
+			'algolia-content-exclude',
+			'Algolia Content Exclude',
+			[ $this, 'metabox' ],
+			$post_type,
+			'normal',
+			'high',
 			[
 				'__back_compat_meta_box' => true,
 			]

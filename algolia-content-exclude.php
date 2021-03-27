@@ -55,7 +55,7 @@ if ( version_compare( PHP_VERSION, ALGOLIA_CONTENT_EXCLUDE_MIN_PHP_VERSION, '<' 
 	return;
 }
 
-require ALGOLIA_CONTENT_EXCLUDE_DIR.'vendor/autoload.php';
+require ALGOLIA_CONTENT_EXCLUDE_DIR . 'vendor/autoload.php';
 
 // Plugin activate/deactivate hooks
 register_activation_hook( __FILE__, array( '\BEAPI\Algolia_Content_Exclude\Plugin', 'activate' ) );

@@ -29,7 +29,7 @@ class Main {
 		add_action( 'init', [ $this, 'register_meta' ], 50 );
 
 		add_filter( 'algolia_should_index_post', [ $this, 'should_index' ], 10, 2 );
-		add_filter( 'algolia_should_index_searchable_post', [$this, 'should_index'], 10, 2 );
+		add_filter( 'algolia_should_index_searchable_post', [ $this, 'should_index' ], 10, 2 );
 	}
 
 	/**
@@ -64,20 +64,24 @@ class Main {
 		$post_types = get_post_types( [ 'show_ui' => true ] );
 
 		foreach ( $post_types as $post_type ) {
-			register_post_meta( 'post', '_algolia_content_exclude', [
-				'object_subtype'    => $post_type,
-				'show_in_rest'      => true,
-				'single'            => true,
-				'description'       => 'Allow the content to be excluded into Algolia',
-				'default'           => false,
-				'type'              => 'boolean',
-				'sanitize_callback' => function ( $value ) {
-					return (bool) $value;
-				},
-				'auth_callback'     => function () {
-					return current_user_can( 'edit_posts' );
-				},
-			] );
+			register_post_meta(
+				'post',
+				'_algolia_content_exclude',
+				[
+					'object_subtype'    => $post_type,
+					'show_in_rest'      => true,
+					'single'            => true,
+					'description'       => 'Allow the content to be excluded into Algolia',
+					'default'           => false,
+					'type'              => 'boolean',
+					'sanitize_callback' => function ( $value ) {
+						return (bool) $value;
+					},
+					'auth_callback'     => function () {
+						return current_user_can( 'edit_posts' );
+					},
+				]
+			);
 		}
 	}
 }

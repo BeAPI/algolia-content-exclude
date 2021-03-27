@@ -21,6 +21,5 @@ class Plugin {
 	}
 
 	public static function deactivate(): void {
-
 	}
 }
