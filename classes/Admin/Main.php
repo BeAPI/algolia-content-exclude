@@ -76,7 +76,7 @@ class Main {
 
 		add_meta_box(
 			'algolia-content-exclude',
-			'Algolia Content Exclude',
+			__( 'Algolia Content Exclude', 'algolia-content-exclude' ),
 			[ $this, 'metabox' ],
 			$post_type,
 			'normal',
