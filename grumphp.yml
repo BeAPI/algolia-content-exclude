@@ -22,7 +22,5 @@ grumphp:
       config: psalm.xml
       triggered_by: ['php']
       show_info: true
-    phpunit:
-      config_file: ~
   testsuites: []
   extensions: []
