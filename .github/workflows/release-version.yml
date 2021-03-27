@@ -4,7 +4,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     branches:
-      - version-*
+      - version/*
 jobs:
   build:
     name: Upload Release Asset
@@ -22,7 +22,7 @@ jobs:
       - run: composer install --prefer-dist --no-dev -o --ignore-platform-reqs
       - run: |
           echo "Get Branch tag"
-          TAG=$(echo '${{ github.ref }}' | grep -Po '(?<=version-)[^;]+')
+          TAG=$(echo '${{ github.ref }}' | grep -Po '(?<=version/)[^;]+')
 
           if git rev-parse "$TAG" >/dev/null 2>&1; then
             echo "Tag exists, stop now";
