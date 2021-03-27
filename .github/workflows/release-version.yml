@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        run: |
+      - run: |
           npm install
           npm run build
       - name: Build project PHP
