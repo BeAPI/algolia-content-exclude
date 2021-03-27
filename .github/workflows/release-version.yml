@@ -34,7 +34,8 @@ jobs:
 
           echo "Creating tag ${TAG}"
           git add .
-          git ci -m "Create tag ${TAG}"
+          git add -u
+          git commit -m "Create tag ${TAG}"
           git tag ${TAG}
           git push --tags
           git push
