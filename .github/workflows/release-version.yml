@@ -24,7 +24,7 @@ jobs:
           echo "Remove useless folders"
           cp .distignore .gitignore
 
-          tag=(echo ${{ github.ref }} | grep -Po '(?<=version-)[^;]+')
+          tag=(echo '${{ github.ref }}' | grep -Po '(?<=version-)[^;]+')
           
           git add .
           git status
