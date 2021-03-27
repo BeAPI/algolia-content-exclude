@@ -11,3 +11,6 @@ composer.json export-ignore
 composer.lock
 .distignore export-ignore
 webpack.config.js export-ignore
+.editorconfig export-ignore
+packages.json export-ignore
+packages-lock.json export-ignore
