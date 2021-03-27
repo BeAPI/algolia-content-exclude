@@ -21,6 +21,11 @@ Download the zip folder from the desired tag.
 
 ## Changelog
 
+### 1.0.3
+* Add translations
+* Add JS translations
+* Add translation on metabox title
+
 ### 1.0.2
 * Do not force indexation if already at false
 
