@@ -1,0 +1,43 @@
+{
+  "name": "beapi/algolia-content-exclude",
+  "type": "project",
+  "minimum-stability": "stable",
+  "license": "GPL-2.0-or-later",
+  "description": "",
+  "authors": [
+	{
+	  "name": "BeAPI",
+	  "email": "technique@beapi.fr",
+	  "homepage": "https://beapi.fr",
+	  "role": "Company"
+	}
+  ],
+  "type": "wordpress-plugin",
+  "config": {
+	"optimize-autoloader": true,
+	"preferred-install": "dist",
+	"sort-packages": true
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+	"php": ">=7.2"
+  },
+  "require-dev": {
+  },
+  "scripts": {
+	"cs": "./vendor/bin/phpcs",
+	"cb": "./vendor/bin/phpcbf",
+	"psalm": "./vendor/bin/psalm"
+  },
+  "scripts-descriptions": {
+	"cs": "Run PHP CodeSniffer on codebase using our ruleset.",
+	"cb": "Run PHP Code Beautifier and Fixer on codebase using our ruleset.",
+	"psalm": "Run psalm on codebase using our ruleset."
+  },
+  "autoload": {
+	"psr-4": {
+	  "BEAPI\\Algolia_Content_Exclude\\": "classes/"
+	}
+  }
+}
