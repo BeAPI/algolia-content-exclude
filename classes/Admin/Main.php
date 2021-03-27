@@ -97,8 +97,8 @@ class Main {
 	public function metabox( $content ): void {
 		wp_nonce_field( 'algolia-content-exclude-' . $content->ID, 'algolia-content-exclude-nonce' ); ?>
 		<p>
-			<input type="checkbox" id="algolia-content-exclude" name="algolia-content-exclude" value="1" <?php checked( get_post_meta( $content->ID, '_algolia_content_exclude', true ) ); ?> />
-			<label for="algolia-content-exclude">
+			<input type="checkbox" id="algolia-content-exclude-checkbox" name="algolia-content-exclude" value="1" <?php checked( get_post_meta( $content->ID, '_algolia_content_exclude', true ) ); ?> />
+			<label for="algolia-content-exclude-checkbox">
 				<?php esc_html_e( 'Exclude from Algolia', 'algolia-content-exclude' ); ?>
 			</label>
 		</p>
