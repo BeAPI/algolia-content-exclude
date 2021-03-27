@@ -32,6 +32,10 @@ jobs:
           echo "Copy .distignore to .gitignore"
           cp .distignore .gitignore
 
+          echo "Configure git"
+          git config --local user.email "$(git log --format='%ae' HEAD^!)"
+          git config --local user.name "$(git log --format='%an' HEAD^!)"
+
           echo "Creating tag ${TAG}"
           git add .
           git add -u
