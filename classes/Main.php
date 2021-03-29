@@ -2,9 +2,12 @@
 
 namespace BEAPI\Algolia_Content_Exclude;
 
+use WP_Post;
 use function add_action;
 use function add_filter;
+use function get_post_meta;
 use function get_post_types;
+use function post_type_supports;
 use function WPSentry\ScopedVendor\Clue\StreamFilter\fun;
 
 /**
@@ -44,18 +47,18 @@ class Main {
 	 * Change the should index based on the metabox value
 	 *
 	 * @param          $should_index
-	 * @param \WP_Post $post
+	 * @param WP_Post  $post
 	 *
 	 * @return bool
 	 * @author Nicolas JUEN
 	 */
-	public function should_index( $should_index, \WP_Post $post ): bool {
+	public function should_index( $should_index, WP_Post $post ): bool {
 		// If already skipped, do not make anyting
 		if ( false == $should_index ) {
 			return $should_index;
 		}
 
-		$meta = (bool) \get_post_meta( $post->ID, '_algolia_content_exclude', true );
+		$meta = (bool) get_post_meta( $post->ID, '_algolia_content_exclude', true );
 
 		return ! ( true === $meta );
 	}
@@ -66,7 +69,11 @@ class Main {
 	 * @author Nicolas JUEN
 	 */
 	public function register_meta(): void {
-		$post_types = get_post_types( [ 'show_ui' => true ] );
+		$post_types = Helpers::get_supported_post_types();
+
+		if ( empty( $post_types ) ) {
+			return;
+		}
 
 		foreach ( $post_types as $post_type ) {
 			register_post_meta(

@@ -2,6 +2,10 @@
 
 namespace BEAPI\Algolia_Content_Exclude;
 
+use Closure;
+use DateTime;
+use function array_filter;
+
 /**
  * The purpose of the API class is to have the basic reusable methods like :
  *  - Template include
@@ -78,7 +82,7 @@ class Helpers {
 	 *
 	 * @param string $tpl : the template name to load
 	 *
-	 * @return \Closure|false
+	 * @return Closure|false
 	 */
 	public static function load_template( string $tpl ) {
 		if ( empty( $tpl ) ) {
@@ -92,7 +96,7 @@ class Helpers {
 
 		return static function ( $data ) use ( $tpl_path ) {
 			if ( ! is_array( $data ) ) {
-				$data = array( 'data' => $data );
+				$data = [ 'data' => $data ];
 			}
 
 			// phpcs:ignore WordPress.PHP.DontExtract.extract_extract
@@ -104,10 +108,10 @@ class Helpers {
 	/**
 	 * Render a view
 	 *
-	 * @param string $tpl : the template's name
-	 * @param array $data : the template's data
+	 * @param string $tpl  : the template's name
+	 * @param array  $data : the template's data
 	 */
-	public static function render( string $tpl, $data = array() ): void {
+	public static function render( string $tpl, $data = [] ): void {
 		$view = self::load_template( $tpl );
 		if ( false !== $view ) {
 			$view( $data );
@@ -124,7 +128,7 @@ class Helpers {
 	 * @return string the date formatted
 	 */
 	public static function format_date( string $date, string $from_format, string $to_format ): string {
-		$date = \DateTime::createFromFormat( $from_format, $date );
+		$date = DateTime::createFromFormat( $from_format, $date );
 		if ( false === $date ) {
 			return '';
 		}
@@ -135,13 +139,42 @@ class Helpers {
 	/**
 	 * Format on i18n
 	 *
-	 * @param string $format
-	 * @param \DateTime $date
+	 * @param string   $format
+	 * @param DateTime $date
 	 *
 	 * @return string
 	 */
-	public static function datetime_i18n( string $format, \DateTime $date ): string {
+	public static function datetime_i18n( string $format, DateTime $date ): string {
 		return date_i18n( $format, $date->format( 'U' ) );
+	}
+
+	/**
+	 * Only post types with custom-fields are supported since we save content in postmeta.
+	 *
+	 * @param string $post_type
+	 *
+	 * @return bool
+	 * @author Nicolas JUEN
+	 * @since 1.0.4
+	 */
+	public static function is_post_type_supported( string $post_type ): bool {
+		return post_type_supports( $post_type, 'custom-fields' );
+	}
+
+	/**
+	 * Get all the post type supported for the edition.
+	 *
+	 * @return string[]
+	 * @author Nicolas JUEN
+	 * @since 1.0.4
+	 */
+	public static function get_supported_post_types(): array {
+		/**
+		 * @var string[] $post_types
+		 */
+		$post_types = get_post_types( [ 'show_ui' => true ] );
+
+		return array_filter( $post_types, [ __CLASS__, 'is_post_type_supported' ] );
 	}
 
 }

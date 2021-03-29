@@ -2,14 +2,18 @@
 
 namespace BEAPI\Algolia_Content_Exclude\Admin;
 
+use BEAPI\Algolia_Content_Exclude\Helpers;
 use BEAPI\Algolia_Content_Exclude\Singleton;
 use WP_Post;
+use WP_Screen;
 use function delete_post_meta;
 use function file_exists;
 use function file_get_contents;
+use function get_current_screen;
 use function get_post_meta;
 use function update_post_meta;
 use function wp_register_script;
+use function wp_set_script_translations;
 use const ALGOLIA_CONTENT_EXCLUDE_DIR;
 use const ALGOLIA_CONTENT_EXCLUDE_URL;
 
@@ -46,9 +50,18 @@ class Main {
 		$script_asset = require $file;
 		wp_register_script(
 			'algolia-content-exclude',
-			ALGOLIA_CONTENT_EXCLUDE_URL . '/assets/build/index.js',
+			ALGOLIA_CONTENT_EXCLUDE_URL . 'assets/build/index.js',
 			$script_asset['dependencies'],
 			$script_asset['version']
+		);
+
+		/**
+		 * Js Textdomain
+		 */
+		wp_set_script_translations(
+			'algolia-content-exclude',
+			'algolia-content-exclude',
+			ALGOLIA_CONTENT_EXCLUDE_DIR . 'languages/'
 		);
 	}
 
@@ -58,19 +71,35 @@ class Main {
 	 * @author Nicolas JUEN
 	 */
 	public function enqueue_script(): void {
+		/**
+		 * @var WP_Screen $screen
+		 */
+		$screen = get_current_screen();
+		if ( ! isset( $screen ) || empty( $screen->post_type ) ) {
+			return;
+		}
+
+		if ( ! Helpers::is_post_type_supported( $screen->post_type ) ) {
+			return;
+		}
+
 		wp_enqueue_script( 'algolia-content-exclude' );
 	}
 
 	/**
 	 * Register the metabox
 	 *
-	 * @param string $post_type
+	 * @param string  $post_type
 	 * @param WP_Post $post
 	 *
 	 * @author Nicolas JUEN
 	 */
-	public function add_meta_box( $post_type, $post ): void {
+	public function add_meta_box( string $post_type, $post ): void {
 		if ( ! ( $post instanceof WP_Post ) ) {
+			return;
+		}
+
+		if ( ! Helpers::is_post_type_supported( $post_type ) ) {
 			return;
 		}
 
@@ -114,8 +143,13 @@ class Main {
 			return;
 		}
 
+		if ( ! Helpers::is_post_type_supported( $content->post_type ) ) {
+			return;
+		}
+
 		if ( isset( $_POST['algolia-content-exclude'] ) ) {
 			update_post_meta( $content->ID, '_algolia_content_exclude', (bool) $_POST['algolia-content-exclude'] );
+
 			return;
 		}
 
