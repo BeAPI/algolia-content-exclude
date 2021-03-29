@@ -21,6 +21,9 @@ Download the zip folder from the desired tag.
 
 ## Changelog
 
+### 1.0.4
+* Do not load script or metabox for post_types that doesn't supports custom-fields
+
 ### 1.0.3
 * Add translations
 * Add JS translations
