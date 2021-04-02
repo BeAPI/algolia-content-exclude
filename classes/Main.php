@@ -77,7 +77,7 @@ class Main {
 
 		foreach ( $post_types as $post_type ) {
 			register_post_meta(
-				'post',
+				$post_type,
 				'_algolia_content_exclude',
 				[
 					'object_subtype'    => $post_type,
