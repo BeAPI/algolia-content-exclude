@@ -47,7 +47,7 @@ class Main {
 	 * Change the should index based on the metabox value
 	 *
 	 * @param          $should_index
-	 * @param WP_Post  $post
+	 * @param WP_Post $post
 	 *
 	 * @return bool
 	 * @author Nicolas JUEN
@@ -76,8 +76,8 @@ class Main {
 		}
 
 		foreach ( $post_types as $post_type ) {
-			register_post_meta(
-				$post_type,
+			register_meta(
+				'post',
 				'_algolia_content_exclude',
 				[
 					'object_subtype'    => $post_type,
