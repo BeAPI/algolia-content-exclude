@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Algolia Content Exclude
-Version: 1.0.4
+Version: 1.0.5
 Version Boilerplate: 3.3.0
 Plugin URI: https://beapi.fr
 Description: Exclude specific content from algolia indexation
@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Plugin constants
-define( 'ALGOLIA_CONTENT_EXCLUDE_VERSION', '1.0.4' );
+define( 'ALGOLIA_CONTENT_EXCLUDE_VERSION', '1.0.5' );
 define( 'ALGOLIA_CONTENT_EXCLUDE_MIN_PHP_VERSION', '7.2' );
 define( 'ALGOLIA_CONTENT_EXCLUDE_VIEWS_FOLDER_NAME', 'algolia-content-exclude' );
 
